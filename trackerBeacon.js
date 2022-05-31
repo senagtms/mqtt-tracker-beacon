@@ -13,13 +13,15 @@ const options = {
     password: ''
   }
   let kod = []
+  let dbBeaconVerileri= []
     if(beaconKodu == undefined){
         beaconListe()
     }else{
    
-   kod=beaconKodu;
-   console.log(kod)
-
+    kod=beaconKodu;
+    console.log("Beacon Kodlar: ",kod)
+    dbBeaconVerileri = dbBeaconListe;
+    console.log("DB Beacon Verileri : " ,dbBeaconVerileri)
    /**topic burada olacak */
     }
 
@@ -60,9 +62,10 @@ function mqttVeri(dbTrackerListe,device,myTopic){
 
         let mqttVeriDizi = []
         mqttVeriDizi.push(myTopic,device.rssi,device.distance,device.url, device.uuid)
+
         console.log("dizi indis sayısı: " + mqttVeriDizi.length)
 
-        console.log("mqtt verileri: ",mqttVeriDizi)
+        console.log(device.id ,': ', mqttVeriDizi)
 
     }
     else{
@@ -78,16 +81,16 @@ function beaconListe(){
           let beaconKodu= []
         results.forEach((r, i) => {
       
-            dbBeaconListe[i] = [results[i].kodu, results[i].metre,results[i].koordinat,results[i].tipi,results[i].konumAlani]
+            dbBeaconListe[i] = [results[i].kodu, results[i].metre,results[i].koordinat,results[i].tipi,results[i].konumAlani]     
             beaconKodu[i]=results[i].kodu;
-
         });
     //   console.log(dbBeaconListe)
     //   console.log(beaconKodu)
-      return mqttCon(beaconKodu)
+      return mqttCon(beaconKodu,dbBeaconListe)
       
     })
 }
+
 
 
 
