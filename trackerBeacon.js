@@ -5,12 +5,12 @@ const mqtt = require('mqtt');
 
 function mqttCon(beaconKodu){
 
-const broker = 'mqtt://192.168.100.40:1883';
+const broker = 'mqtt://...';
 
 const options = {
-    clientId: 'nodeClient',
-    username: 'beacon',
-    password: '12345q'
+    clientId: '',
+    username: '',
+    password: ''
   }
   let kod = []
     if(beaconKodu == undefined){
@@ -32,9 +32,9 @@ const options = {
     client.on('message', (myTopic, paylaod) => {
 
         let device=JSON.parse(paylaod.toString())
-        console.log(device.rssi);
-        console.log(device.id.toString());
-        console.log(device.distance);
+//         console.log(device.rssi);
+//         console.log(device.id.toString());
+//         console.log(device.distance);
 
   console.log(`topic`, myTopic)
  
@@ -79,11 +79,7 @@ function beaconListe(){
         results.forEach((r, i) => {
       
             dbBeaconListe[i] = [results[i].kodu, results[i].metre,results[i].koordinat,results[i].tipi,results[i].konumAlani]
-            if(results[i].kodu != undefined){
             beaconKodu[i]=results[i].kodu;
-        }
-
- 
 
         });
     //   console.log(dbBeaconListe)
